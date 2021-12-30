@@ -38,16 +38,16 @@ async function run() {
         const usersCollection = database.collection('users');
         const jobsCollection = database.collection('jobs');
 
-        app.post('/addCar', async (req,res)=>{
+        app.post('/jobs', async (req,res)=>{
             const result = await jobsCollection.insertOne(req.body);
             res.send(result);
             console.log(result);
           });
-          app.get('/addCar', async (req,res)=>{
+          app.get('/jobs', async (req,res)=>{
             const result = await jobsCollection.find({}).toArray();
             res.json(result);
           });
-          app.get('/addCar/:id', async (req,res)=>{
+          app.get('/jobs/:id', async (req,res)=>{
             const query = { _id: ObjectId(req.params.id) }
             const car = await jobsCollection.findOne(query);
             res.send(car);
