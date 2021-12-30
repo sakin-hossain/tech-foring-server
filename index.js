@@ -38,26 +38,23 @@ async function run() {
         const usersCollection = database.collection('users');
         const jobsCollection = database.collection('jobs');
 
-        // POST packages
-        app.post('/jobs', async (req,res)=>{
+        app.post('/addCar', async (req,res)=>{
             const result = await jobsCollection.insertOne(req.body);
             res.send(result);
-        });
-        // get packages to server
-        app.get('/jobs', async (req,res)=>{
+            console.log(result);
+          });
+          app.get('/addCar', async (req,res)=>{
             const result = await jobsCollection.find({}).toArray();
             res.json(result);
-        });
-        // get individual package
-        app.get('/jobs/:id', async (req,res)=>{
+          });
+          app.get('/addCar/:id', async (req,res)=>{
             const query = { _id: ObjectId(req.params.id) }
-            const package = await packagesCollection.findOne(query);
-            res.send(package);
+            const car = await jobsCollection.findOne(query);
+            res.send(car);
         });
-        // delete orders
         app.delete('/jobs/:id', async(req,res)=>{
             const query = {_id: ObjectId(req.params.id)};
-            const result = await emailCollection.deleteOne(query);
+            const result = await jobsCollection.deleteOne(query);
             res.json(result);
         });
         app.post('/users', async (req, res) => {
